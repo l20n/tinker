@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>L20n tinker</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style type="text/css" media="screen">
+      h1 {
+        margin-bottom: 2em;
+      }
+      #source {
+        position: relative;
+        width: 25em;
+        height: 30em;
+      }
+      .popover {
+        z-index: 9999;
+      }
+    </style>
+
+
+    <script type="text/javascript" src="../js/lib/events.js"></script>
+    <script type="text/javascript" src="../js/lib/parser.js"></script>
+    <script type="text/javascript" src="../js/lib/compiler.js"></script>
+  </head>
+  <body>
+    <h1>L20n tinker</h1>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span4">
+          <div id="source"></div>
+        </div>
+        <div class="span8">
+          <textarea id="output"></textarea>
+          <div id="parsererrors"></div>
+          <div id="compilererrors"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>""
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript">
+      var source = ace.edit("source");
+      source.setTheme("ace/theme/monokai");
+      source.getSession().setMode("ace/mode/clojure");
+
+      var output = document.getElementById("output");
+      var parsererrors = document.getElementById("parsererrors");
+      var compilererrors = document.getElementById("compilererrors");
+
+      var parser = new L20nParser(L20nEventEmitter);
+      var compiler = new L20nCompiler(L20nEventEmitter, L20nParser);
+
+      parser.addEventListener('error', function(e) {
+        $("#source").popover({
+          placement: "top",
+          trigger: "manual",
+          title: "Parse Error",
+          content: e.message,
+        });
+        $("#source").popover("show");
+      });
+      compiler.addEventListener('error', console.log);
+
+      source.getSession().on('change', function(e) {
+        $("#source").popover("destroy");
+        var code = source.getValue();
+        var ast = parser.parse(code);
+        var entries = compiler.compile(ast);
+        output.value = '';
+        for (var id in entries) {
+          output.value += id + ' = ' + entries[id].toString() + '\n';
+        }
+      });
+
+    </script>
+  </body>
+</html>
