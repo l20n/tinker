@@ -30,15 +30,12 @@
         <div class="span4">
           <div id="source"></div>
         </div>
-        <div class="span8">
-          <textarea id="output"></textarea>
-          <div id="parsererrors"></div>
-          <div id="compilererrors"></div>
-        </div>
+        <dl class="span4" id="output"></dl>
+        <dl class="span4" id="errors"></dl>
       </div>
     </div>
 
-    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>""
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
     <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
@@ -47,32 +44,36 @@
       source.setTheme("ace/theme/monokai");
       source.getSession().setMode("ace/mode/clojure");
 
-      var output = document.getElementById("output");
-      var parsererrors = document.getElementById("parsererrors");
-      var compilererrors = document.getElementById("compilererrors");
-
       var parser = new L20nParser(L20nEventEmitter);
       var compiler = new L20nCompiler(L20nEventEmitter, L20nParser);
 
       parser.addEventListener('error', function(e) {
-        $("#source").popover({
-          placement: "top",
-          trigger: "manual",
-          title: "Parse Error",
-          content: e.message,
-        });
-        $("#source").popover("show");
+        console.log(e);
+        $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
       });
-      compiler.addEventListener('error', console.log);
+      compiler.addEventListener('error', function(e) {
+        console.log(e);
+        $("#errors").append("<dt>" + e.name + " in entity " + e.entry + "</dt><dd>" + e.message + "</dd>");
+      });
 
       source.getSession().on('change', function(e) {
-        $("#source").popover("destroy");
+        $("#output").empty();
+        $("#errors").empty();
         var code = source.getValue();
         var ast = parser.parse(code);
         var entries = compiler.compile(ast);
-        output.value = '';
         for (var id in entries) {
-          output.value += id + ' = ' + entries[id].toString() + '\n';
+          var val;
+          try {
+            val = entries[id].toString();
+          } catch (e) {
+            if (e instanceof compiler.ValueError) {
+              val = e.source;
+            } else {
+              continue;
+            }
+          }
+          $("#output").append("<dt>" + id + "</dt><dd>" + val + "</dd>");
         }
       });
 
