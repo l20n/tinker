@@ -48,13 +48,12 @@
       var compiler = new L20nCompiler(L20nEventEmitter, L20nParser);
 
       parser.addEventListener('error', function(e) {
-        console.log(e);
         $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
       });
       compiler.addEventListener('error', function(e) {
-        console.log(e);
-        $("#errors").append("<dt>" + e.name + " in entity " + e.entry + "</dt><dd>" + e.message + "</dd>");
+        $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + "</code></dt><dd>" + e.message + "</dd>");
       });
+      compiler.addEventListener('inner', console.log);
 
       source.getSession().on('change', function(e) {
         $("#output").empty();
@@ -73,7 +72,7 @@
               continue;
             }
           }
-          $("#output").append("<dt>" + id + "</dt><dd>" + val + "</dd>");
+          $("#output").append("<dt><code>" + id + "</code></dt><dd>" + val + "</dd>");
         }
       });
 
