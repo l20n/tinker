@@ -43,27 +43,6 @@ body {
   width: 33%;
 }
 
-.container-fluid .row-fluid .span4 header {
-  background-color: #F5F5F5;
-  border: 1px solid #DDDDDD;
-  color: #9DA0A4;
-  font-size: 12px;
-  right: 8px;
-  padding: 0px 7px;
-  position: absolute;
-  text-transform: uppercase;
-  top: 5px;
-  z-index: 5;
-
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-}
-
-.container-fluid .row-fluid .span4#source-wrapper header {
-  right: 23px;
-}
-
 #source-wrapper {
   position: relative;
 }
