@@ -2,7 +2,7 @@ $(function() {
   $('#element').popover({
     placement: 'bottom',
     html: true,
-    title: 'Share URL:',
+    title: 'Share URL',
     content: '<input type="text">',
   }).click(function() {
     $(this).popover('toggle');
