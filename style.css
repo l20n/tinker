@@ -69,12 +69,14 @@ dd {
 }
 
 #output dt code {
-  color: #006A00;
-  font-weight: bold;
+  color: #DD1144;
+  font-weight: normal;
 }
 
 #output dd {
+  color: #666666;
   display: inline-block;
+  font-size: 13px;
 }
 
 #errors {
