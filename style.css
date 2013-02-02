@@ -75,6 +75,10 @@ dd {
   width: 50%;
 }
 
+#output dt code {
+  color: #006A00;
+}
+
 #output dd {
   display: inline-block;
 }
