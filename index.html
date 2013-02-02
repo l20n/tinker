@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>L20n tinker</title>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+
     <script type="text/javascript" src="../js/lib/events.js"></script>
     <script type="text/javascript" src="../js/lib/parser.js"></script>
     <script type="text/javascript" src="../js/lib/compiler.js"></script>
@@ -50,46 +51,9 @@
       </div>
     </div>
 
-    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script src="lib/jquery-1.9.0.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script src="lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="script.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
-    <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-
-    <script type="text/javascript">
-      var source = ace.edit("source");
-      source.getSession().setMode("ace/mode/clojure");
-
-      var parser = new L20nParser(L20nEventEmitter);
-      var compiler = new L20nCompiler(L20nEventEmitter, L20nParser);
-
-      parser.addEventListener('error', function(e) {
-        $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
-      });
-      compiler.addEventListener('error', function(e) {
-        $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + "</code></dt><dd>" + e.message + "</dd>");
-      });
-
-      source.getSession().on('change', function(e) {
-        $("#output").empty();
-        $("#errors").empty();
-        var code = source.getValue();
-        var ast = parser.parse(code);
-        var entries = compiler.compile(ast);
-        for (var id in entries) {
-          var val;
-          try {
-            val = entries[id].toString();
-          } catch (e) {
-            if (e instanceof compiler.ValueError) {
-              val = e.source;
-            } else {
-              continue;
-            }
-          }
-          $("#output").append("<div><dt><code>" + id + "</code></dt><dd>" + val + "</dd></div>");
-        }
-      });
-
-    </script>
   </body>
 </html>
