@@ -82,7 +82,7 @@ $(function() {
     title: 'Share URL',
     content: '<input id="share-url" type="text">',
   }).click(function() {
-    $('#share-url').val(linkify());
+    $('#share-url').val(linkify()).focus().select();
     $(this).popover('toggle');
   });
 });
