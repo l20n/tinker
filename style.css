@@ -12,6 +12,14 @@ body {
   color: #000000;
 }
 
+.popover-title {
+  padding-left: 8px;
+}
+
+#share-url {
+    margin-left: -6px;
+}
+
 .container-fluid .row-fluid {
   bottom: 0;
   top: 41px;
