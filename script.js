@@ -1,5 +1,12 @@
 $(function() {
-
+  $('#element').popover({
+    placement: 'bottom',
+    html: true,
+    title: 'Share URL:',
+    content: '<input type="text">',
+  }).click(function() {
+    $(this).popover('toggle');
+  });
 });
 
 var source = ace.edit("source");

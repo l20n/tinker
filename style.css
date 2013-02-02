@@ -20,7 +20,7 @@ body {
 }
 
 .btn {
-  float: right;
+  margin-left: 10px;
 }
 
 .container-fluid .row-fluid {
