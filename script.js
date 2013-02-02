@@ -12,18 +12,15 @@ $(function() {
     $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + "</code></dt><dd>" + e.message + "</dd>");
   });
 
-  var source = ace.edit("source");
-  source.getSession().setMode("ace/mode/clojure");
-
-
-
-  /* ACE */
-
-  source.getSession().on('change', function(e) {
+  function update() {
     $("#output").empty();
     $("#errors").empty();
     var code = source.getValue();
     var ast = parser.parse(code);
+    var data;
+    try {
+      var data = JSON.parse(context.getValue());
+    } catch (e) {}
     var entries = compiler.compile(ast);
     for (var id in entries) {
       if (entries[id].expression) {
@@ -32,7 +29,7 @@ $(function() {
       }
       var val;
       try {
-        val = entries[id].toString();
+        val = entries[id].toString(data);
       } catch (e) {
         if (e instanceof compiler.ValueError) {
           val = e.source;
@@ -42,8 +39,18 @@ $(function() {
       }
       $("#output").append("<div><dt><code>" + id + "</code></dt><dd>" + val + "</dd></div>");
     }
-  });
+  }
 
+
+  /* ACE */
+
+  var source = ace.edit("source");
+  source.getSession().setMode("ace/mode/clojure");
+  source.getSession().on('change', update);
+
+  var context = ace.edit("context");
+  context.getSession().setMode("ace/mode/json");
+  context.getSession().on('change', update);
 
 
   /* Linkify */
