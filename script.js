@@ -51,28 +51,15 @@ $(function() {
   function utf8_to_b64(str) {
       return window.btoa(unescape(encodeURIComponent(str)));
   }
-   
+
   function b64_to_utf8(str) {
       return decodeURIComponent(escape(window.atob(str)));
   }
 
   function linkify() {
     var code = source.getValue();
-    console.log(utf8_to_b64(code));
+    return window.location.href.split("#")[0] + '#' + utf8_to_b64(code);
   }
-
-
-
-  /* Popover */
-
-  $('#element').popover({
-    placement: 'bottom',
-    html: true,
-    title: 'Share URL',
-    content: '<input type="text">',
-  }).click(function() {
-    $(this).popover('toggle');
-  });
 
 
 
@@ -89,4 +76,13 @@ $(function() {
   }
   source.setValue(content);
 
+  $('#share').popover({
+    placement: 'bottom',
+    html: true,
+    title: 'Share URL',
+    content: '<input id="share-url" type="text">',
+  }).click(function() {
+    $('#share-url').val(linkify());
+    $(this).popover('toggle');
+  });
 });
