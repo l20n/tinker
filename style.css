@@ -23,10 +23,6 @@ body {
   float: right;
 }
 
-.container-fluid {
-  padding: 0;
-}
-
 .container-fluid .row-fluid {
   bottom: 0;
   top: 41px;
@@ -35,55 +31,60 @@ body {
   position: absolute;
 }
 
-.container-fluid .row-fluid .span3 {
-  background: white;
+.container-fluid .row-fluid .span2 {
+  background: #FFFFFF;
+  position: relative;
   height: 100%;
+  width: 50%;
   margin: 0;
-  position: relative;
-  width: 25%;
-}
-
-#source-wrapper,
-#context-wrapper {
-  position: relative;
 }
 
 #source,
-#context {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+#output {
+  height: 70%;
 }
 
-#output div {
-  margin-bottom: 5px;
+#context,
+#errors {
+  border-top: 1px solid #EBEBEB;
+  height: 30%;
 }
 
 dl {
-  margin: 5px 8px;
+  margin: 0;
 }
 
 dd {
-  margin-left: 0;
+  margin: 0;
+}
+
+#output {
+  overflow-y: auto;
+}
+
+#output div {
+  margin: 5px 0 0 8px;
 }
 
 #output dt {
-  font-weight: bold;
   display: inline-block;
   width: 50%;
 }
 
 #output dt code {
   color: #006A00;
+  font-weight: bold;
 }
 
 #output dd {
   display: inline-block;
 }
 
+#errors {
+  overflow-y: auto;
+  padding: 5px 8px;
+}
+
 #errors dt {
   color: #DD1144;
 }
-
