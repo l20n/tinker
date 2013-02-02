@@ -35,29 +35,26 @@ body {
   position: absolute;
 }
 
-.container-fluid .row-fluid .span4 {
+.container-fluid .row-fluid .span3 {
   background: white;
   height: 100%;
   margin: 0;
   position: relative;
-  width: 33%;
+  width: 25%;
 }
 
-#source-wrapper {
+#source-wrapper,
+#context-wrapper {
   position: relative;
 }
 
-#source {
+#source,
+#context {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-#output-wrapper, #errors-wrapper {
-  border-left: 1px solid #EBEBEB;
-  overflow-y: scroll;
 }
 
 #output div {
