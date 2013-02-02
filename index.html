@@ -4,44 +4,59 @@
     <meta charset="utf-8">
     <title>L20n tinker</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <style type="text/css" media="screen">
-      h1 {
-        margin-bottom: 2em;
-      }
-      #source {
-        position: relative;
-        width: 25em;
-        height: 30em;
-      }
-      .popover {
-        z-index: 9999;
-      }
-    </style>
-
-
+    <link href="style.css" rel="stylesheet">
     <script type="text/javascript" src="../js/lib/events.js"></script>
     <script type="text/javascript" src="../js/lib/parser.js"></script>
     <script type="text/javascript" src="../js/lib/compiler.js"></script>
   </head>
   <body>
-    <h1>L20n tinker</h1>
+    <div class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a id="logo" class="brand" href="#">L20n tinker</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a class="context" href="#context">Context Data</a></li>
+              <li class="active"><a class="globals" href="#globals">Globals</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span4">
+
+        <div id="source-wrapper" class="span4">
+          <header>Source</header>
           <div id="source"></div>
         </div>
-        <dl class="span4" id="output"></dl>
-        <dl class="span4" id="errors"></dl>
+
+        <div id="output-wrapper" class="span4">
+          <header>Output</header>
+          <dl id="output" />
+        </div>
+
+        <div id="errors-wrapper" class="span4">
+          <header>Errors</header>
+          <dl id="errors" />
+        </div>
+
       </div>
     </div>
 
     <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script src="script.js"></script>
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
     <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
     <script type="text/javascript">
       var source = ace.edit("source");
-      source.setTheme("ace/theme/monokai");
       source.getSession().setMode("ace/mode/clojure");
 
       var parser = new L20nParser(L20nEventEmitter);
@@ -53,7 +68,6 @@
       compiler.addEventListener('error', function(e) {
         $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + "</code></dt><dd>" + e.message + "</dd>");
       });
-      compiler.addEventListener('inner', console.log);
 
       source.getSession().on('change', function(e) {
         $("#output").empty();
@@ -72,7 +86,7 @@
               continue;
             }
           }
-          $("#output").append("<dt><code>" + id + "</code></dt><dd>" + val + "</dd>");
+          $("#output").append("<div><dt><code>" + id + "</code></dt><dd>" + val + "</dd></div>");
         }
       });
 

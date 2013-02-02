@@ -1,0 +1,109 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.brand#logo {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 20px;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+     -moz-transition: all .2s linear;
+          transition: all .2s linear;
+}
+
+.navbar .nav-collapse.collapse {
+  float: right;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.container-fluid .row-fluid {
+  bottom: 0;
+  top: 41px;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.container-fluid .row-fluid .span4 {
+  background: white;
+  height: 100%;
+  margin: 0;
+  position: relative;
+  width: 33%;
+}
+
+.container-fluid .row-fluid .span4 header {
+  background-color: #F5F5F5;
+  border: 1px solid #DDDDDD;
+  color: #9DA0A4;
+  font-size: 12px;
+  right: 8px;
+  padding: 0px 7px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 5px;
+  z-index: 5;
+
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.container-fluid .row-fluid .span4#source-wrapper header {
+  right: 23px;
+}
+
+#source-wrapper {
+  position: relative;
+}
+
+#source {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#output-wrapper, #errors-wrapper {
+  border-left: 1px solid #EBEBEB;
+  overflow-y: scroll;
+}
+
+#output div {
+  margin-bottom: 5px;
+}
+
+dl {
+  margin: 5px 8px;
+}
+
+dd {
+  margin-left: 0;
+}
+
+#output dt {
+  font-weight: bold;
+  display: inline-block;
+  width: 50%;
+}
+
+#output dd {
+  display: inline-block;
+}
+
+#errors dt {
+  color: #DD1144;
+}
+
