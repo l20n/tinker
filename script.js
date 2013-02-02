@@ -44,8 +44,26 @@ source.getSession().on('change', function(e) {
   }
 });
 
-source.setValue(
+function utf8_to_b64(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+ 
+function b64_to_utf8(str) {
+    return decodeURIComponent(escape(window.atob(str)));
+}
+
+var hash = window.location.hash.slice(1);
+var content = (
   "<name \"L20n tinker\">\n" +
   "<welcome \"Welcome to {{ name }}\">\n"
 );
 
+if (hash) {
+  content = b64_to_utf8(hash);
+}
+source.setValue(content);
+
+function linkify() {
+  var code = source.getValue();
+  console.log(utf8_to_b64(code));
+}
