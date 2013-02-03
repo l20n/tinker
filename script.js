@@ -2,8 +2,8 @@ $(function() {
 
   /* L20n */
 
-  var parser = new L20nParser(L20nEventEmitter);
-  var compiler = new L20nCompiler(L20nEventEmitter, L20nParser);
+  var parser = new L20n.Parser(L20n.EventEmitter);
+  var compiler = new L20n.Compiler(L20n.EventEmitter, L20n.Parser);
 
   parser.addEventListener('error', function(e) {
     $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
