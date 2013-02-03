@@ -5,6 +5,12 @@ $(function() {
   var parser = new L20n.Parser(L20n.EventEmitter);
   var compiler = new L20n.Compiler(L20n.EventEmitter, L20n.Parser);
 
+  compiler.setGlobals({
+    get hour() {
+      return new Date().getHours();
+    },
+  });
+
   parser.addEventListener('error', function(e) {
     $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
   });
@@ -74,14 +80,27 @@ $(function() {
 
   var hash = window.location.hash.slice(1);
   var content = (
-    "<name \"L20n tinker\">\n" +
-    "<welcome \"Welcome to {{ name }}\">\n" +
+    "<title \"L20n tinker\">\n" +
     "\n" +
-    "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
+    "<hello[timeOfDay(@hour)] {\n" +
+    "  morning: \"Good morning!\",\n" +
+    "  afternoon: \"Good afternoon!\",\n" +
+    "  evening: \"Good evening!\",\n" +
+    " *other: \"Hello!\"\n" +
+    "}>\n" +
+    "\n" +
+    "<welcome \"Welcome to {{ title }}\">\n" +
+    "\n" +
     "<turnout[plural($people)] {\n" +
     "  one: \"There's one person in the room.\",\n" +
     "  many: \"There are {{ $people }} people in the room.\"\n" +
-    "}>"
+    "}>" +
+    "\n" +
+    "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
+    "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +
+    "                   $h < 12 ? \"morning\" :\n" +
+    "                     $h < 18 ? \"afteroon\" :\n" +
+    "                       \"evening\" }>\n"
   );
   var ctxdata = (
     "{\n" +
