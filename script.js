@@ -30,8 +30,8 @@ $(function() {
     var entries = compiler.compile(ast);
     for (var id in entries) {
       if (entries[id].expression) {
-        $("#output").append("<div><dt><code class=\"macro\">" + id + "()</code></dt><dd></dd></div>");
         continue;
+        $("#output").append("<div><dt><code class=\"disabled\">" + id + "()</code></dt><dd></dd></div>");
       }
       var val;
       try {
@@ -40,6 +40,7 @@ $(function() {
         if (e instanceof compiler.ValueError) {
           val = e.source;
         } else {
+          $("#output").append("<div><dt><code class=\"disabled\">" + e.entry + "</code></dt><dd></dd></div>");
           continue;
         }
       }
@@ -52,6 +53,7 @@ $(function() {
 
   var source = ace.edit("source");
   source.setShowPrintMargin(false);
+  source.setDisplayIndentGuides(false);
   source.getSession().setUseWrapMode(true);
   source.setTheme("ace/theme/solarized_light");
   source.getSession().setMode("ace/mode/clojure");

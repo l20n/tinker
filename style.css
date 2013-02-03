@@ -87,7 +87,7 @@ dd {
   font-weight: normal;
 }
 
-#output dt code.macro {
+#output dt code.disabled {
   color: #999999;
 }
 
