@@ -112,7 +112,7 @@ $(function() {
       "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
       "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +
       "                   $h < 12 ? \"morning\" :\n" +
-      "                     $h < 18 ? \"afteroon\" :\n" +
+      "                     $h < 18 ? \"afternoon\" :\n" +
       "                       \"evening\" }>\n"
     ),
     context: (
