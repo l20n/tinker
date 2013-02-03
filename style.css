@@ -41,10 +41,24 @@ body {
   height: 70%;
 }
 
+#source {
+  background-color: rgb(253, 246, 227);
+}
+
+.ace_scrollbar {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
 #context,
 #errors {
   border-top: 1px solid #EBEBEB;
   height: 30%;
+}
+
+#source,
+#context {
+  border-right: 1px solid #EBEBEB;
 }
 
 dl {
