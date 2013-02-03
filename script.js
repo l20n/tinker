@@ -112,7 +112,9 @@ $(function() {
     content = b64_to_utf8(hash);
   }
   source.setValue(content);
+  source.clearSelection();
   context.setValue(ctxdata);
+  context.clearSelection();
 
   $('#share').popover({
     placement: 'bottom',
