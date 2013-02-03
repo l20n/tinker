@@ -53,6 +53,7 @@ $(function() {
 
   var source = ace.edit("source");
   source.setShowPrintMargin(false);
+  source.setDisplayIndentGuides(false);
   source.getSession().setUseWrapMode(true);
   source.setTheme("ace/theme/solarized_light");
   source.getSession().setMode("ace/mode/clojure");
