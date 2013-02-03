@@ -30,7 +30,7 @@ $(function() {
     var entries = compiler.compile(ast);
     for (var id in entries) {
       if (entries[id].expression) {
-        $("#output").append("<div><dt><code>" + id + "()</code></dt><dd><em>macro</em></dd></div>");
+        $("#output").append("<div><dt><code class=\"macro\">" + id + "()</code></dt><dd></dd></div>");
         continue;
       }
       var val;
@@ -98,7 +98,7 @@ $(function() {
       "<turnout[plural($people)] {\n" +
       "  one: \"There's one person in the room.\",\n" +
       "  many: \"There are {{ $people }} people in the room.\"\n" +
-      "}>" +
+      "}>\n" +
       "\n" +
       "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
       "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +

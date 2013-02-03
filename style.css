@@ -73,6 +73,10 @@ dd {
   font-weight: normal;
 }
 
+#output dt code.macro {
+  color: #999999;
+}
+
 #output dd {
   color: #666666;
   display: inline-block;
