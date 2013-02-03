@@ -51,10 +51,17 @@ $(function() {
   /* ACE */
 
   var source = ace.edit("source");
+  source.setShowPrintMargin(false);
+  source.getSession().setUseWrapMode(true);
+  source.setTheme("ace/theme/solarized_light");
   source.getSession().setMode("ace/mode/clojure");
   source.getSession().on('change', update);
 
   var context = ace.edit("context");
+  context.setShowPrintMargin(false);
+  context.setHighlightActiveLine(false);
+  context.setHighlightGutterLine(false);
+  context.setHighlightSelectedWord(false);
   context.getSession().setMode("ace/mode/json");
   context.getSession().on('change', update);
 
