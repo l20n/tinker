@@ -70,8 +70,11 @@ $(function() {
   }
 
   function linkify() {
-    var code = source.getValue();
-    return window.location.href.split("#")[0] + '#' + utf8_to_b64(code);
+    var state = {
+      source: source.getValue(),
+      context: context.getValue(),
+    }
+    return window.location.href.split("#")[0] + '#' + utf8_to_b64(JSON.stringify(state));
   }
 
 
@@ -79,41 +82,43 @@ $(function() {
   /* Main Code */
 
   var hash = window.location.hash.slice(1);
-  var content = (
-    "<title \"L20n tinker\">\n" +
-    "\n" +
-    "<hello[timeOfDay(@hour)] {\n" +
-    "  morning: \"Good morning!\",\n" +
-    "  afternoon: \"Good afternoon!\",\n" +
-    "  evening: \"Good evening!\",\n" +
-    " *other: \"Hello!\"\n" +
-    "}>\n" +
-    "\n" +
-    "<welcome \"Welcome to {{ title }}\">\n" +
-    "\n" +
-    "<turnout[plural($people)] {\n" +
-    "  one: \"There's one person in the room.\",\n" +
-    "  many: \"There are {{ $people }} people in the room.\"\n" +
-    "}>" +
-    "\n" +
-    "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
-    "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +
-    "                   $h < 12 ? \"morning\" :\n" +
-    "                     $h < 18 ? \"afteroon\" :\n" +
-    "                       \"evening\" }>\n"
-  );
-  var ctxdata = (
-    "{\n" +
-    "  \"people\": 7\n" +
-    "}"
-  );
+  var state = {
+    source: (
+      "<title \"L20n tinker\">\n" +
+      "\n" +
+      "<hello[timeOfDay(@hour)] {\n" +
+      "  morning: \"Good morning!\",\n" +
+      "  afternoon: \"Good afternoon!\",\n" +
+      "  evening: \"Good evening!\",\n" +
+      " *other: \"Hello!\"\n" +
+      "}>\n" +
+      "\n" +
+      "<welcome \"Welcome to {{ title }}\">\n" +
+      "\n" +
+      "<turnout[plural($people)] {\n" +
+      "  one: \"There's one person in the room.\",\n" +
+      "  many: \"There are {{ $people }} people in the room.\"\n" +
+      "}>" +
+      "\n" +
+      "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
+      "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +
+      "                   $h < 12 ? \"morning\" :\n" +
+      "                     $h < 18 ? \"afteroon\" :\n" +
+      "                       \"evening\" }>\n"
+    ),
+    context: (
+      "{\n" +
+      "  \"people\": 7\n" +
+      "}"
+    ),
+  } 
 
   if (hash) {
-    content = b64_to_utf8(hash);
+    state = JSON.parse(b64_to_utf8(hash));
   }
-  source.setValue(content);
+  source.setValue(state.source);
+  context.setValue(state.context);
   source.clearSelection();
-  context.setValue(ctxdata);
   context.clearSelection();
 
   $('#share').popover({
