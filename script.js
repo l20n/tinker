@@ -75,13 +75,25 @@ $(function() {
   var hash = window.location.hash.slice(1);
   var content = (
     "<name \"L20n tinker\">\n" +
-    "<welcome \"Welcome to {{ name }}\">\n"
+    "<welcome \"Welcome to {{ name }}\">\n" +
+    "\n" +
+    "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
+    "<turnout[plural($people)] {\n" +
+    "  one: \"There's one person in the room.\",\n" +
+    "  many: \"There are {{ $people }} people in the room.\"\n" +
+    "}>"
+  );
+  var ctxdata = (
+    "{\n" +
+    "  \"people\": 7\n" +
+    "}"
   );
 
   if (hash) {
     content = b64_to_utf8(hash);
   }
   source.setValue(content);
+  context.setValue(ctxdata);
 
   $('#share').popover({
     placement: 'bottom',
