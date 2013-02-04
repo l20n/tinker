@@ -21,6 +21,14 @@ $(function() {
       }
       return 'unknown';
     },
+    screen: {
+      get width() {
+        return document.body.clientWidth;
+      },
+      get height() {
+        return document.body.clientHeight;
+      },
+    }
   });
 
   parser.addEventListener('error', function(e) {
