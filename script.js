@@ -102,44 +102,13 @@ $(function() {
 
   /* Main Code */
 
-  var hash = window.location.hash.slice(1);
-  var state = {
-    source: (
-      "<title \"L20n tinker\">\n" +
-      "\n" +
-      "<hello[timeOfDay(@hour)] {\n" +
-      "  morning: \"Good morning!\",\n" +
-      "  afternoon: \"Good afternoon!\",\n" +
-      "  evening: \"Good evening!\",\n" +
-      " *other: \"Hello!\"\n" +
-      "}>\n" +
-      "\n" +
-      "<welcome \"Welcome to {{ title }}\">\n" +
-      "\n" +
-      "<turnout[plural($people)] {\n" +
-      "  one: \"There's one person in the room.\",\n" +
-      "  many: \"There are {{ $people }} people in the room.\"\n" +
-      "}>\n" +
-      "\n" +
-      "<plural($n) { $n == 1 ? \"one\" : \"many\" }>\n" +
-      "<timeOfDay($h) { $h < 6 ? \"night\" :\n" +
-      "                   $h < 12 ? \"morning\" :\n" +
-      "                     $h < 18 ? \"afternoon\" :\n" +
-      "                       \"evening\" }>\n"
-    ),
-    context: (
-      "{\n" +
-      "  \"people\": 7\n" +
-      "}"
-    ),
-  } 
 
-  if (hash) {
-    state = JSON.parse(b64_to_utf8(hash));
-  }
+  var hash = window.location.hash.slice(1) || defaultHash;
+  var state = JSON.parse(b64_to_utf8(hash));
   source.setValue(state.source);
   context.setValue(state.context);
   source.clearSelection();
+  source.gotoLine(0);
   context.clearSelection();
 
   $('#share').popover({
