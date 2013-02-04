@@ -87,7 +87,7 @@ dd {
 
 #output dt {
   display: inline-block;
-  width: 50%;
+  width: 30%;
 }
 
 #output dt code {
@@ -100,8 +100,10 @@ dd {
 }
 
 #output dd {
+  width: 70%;
   color: #666666;
   display: inline-block;
+  vertical-align: top;
   font-size: 13px;
 }
 
