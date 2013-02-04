@@ -9,6 +9,18 @@ $(function() {
     get hour() {
       return new Date().getHours();
     },
+    get os() {
+      if (/^MacIntel/.test(navigator.platform)) {
+        return 'mac';
+      }
+      if (/^Linux/.test(navigator.platform)) {
+        return 'linux';
+      }
+      if (/^Win/.test(navigatgor.platform)) {
+        return 'win';
+      }
+      return 'unknown';
+    },
   });
 
   parser.addEventListener('error', function(e) {
