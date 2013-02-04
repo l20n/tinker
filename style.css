@@ -45,11 +45,6 @@ body {
   background-color: rgb(253, 246, 227);
 }
 
-.ace_scrollbar {
-  overflow-x: hidden;
-  overflow-y: auto !important;
-}
-
 #context,
 #errors {
   border-top: 1px solid #EBEBEB;
@@ -59,6 +54,19 @@ body {
 #source,
 #context {
   border-right: 1px solid #EBEBEB;
+}
+
+.ace_scrollbar {
+  overflow-x: hidden;
+  overflow-y: auto !important;
+}
+
+.ace_line {
+  color: #999999 !important;
+}
+
+.ace_entity {
+  color: #D33682 !important;
 }
 
 dl {
