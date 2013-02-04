@@ -56,7 +56,7 @@ $(function() {
   source.setDisplayIndentGuides(false);
   source.getSession().setUseWrapMode(true);
   source.setTheme("ace/theme/solarized_light");
-  source.getSession().setMode("ace/mode/clojure");
+  source.getSession().setMode("ace/mode/php");
   source.getSession().on('change', update);
 
   var context = ace.edit("context");
