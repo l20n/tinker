@@ -31,16 +31,22 @@ $(function() {
     }
   });
 
+  var entries;
+  var data;
+
   function update() {
-    $("#output").empty();
-    $("#errors").empty();
     var code = source.getValue();
     var ast = parser.parse(code);
-    var data;
     try {
-      var data = JSON.parse(context.getValue());
+      data = JSON.parse(context.getValue());
     } catch (e) {}
-    var entries = compiler.compile(ast);
+    entries = compiler.compile(ast);
+    getAll();
+  }
+
+  function getAll() {
+    $("#output").empty();
+    $("#errors").empty();
     for (var id in entries) {
       if (entries[id].expression) {
         continue;
@@ -60,7 +66,6 @@ $(function() {
       $("#output").append("<div><dt><code>" + id + "</code></dt><dd>" + val + "</dd></div>");
     }
   }
-
 
   /* ACE */
 
@@ -136,4 +141,6 @@ $(function() {
     $('#share-url').val(linkify()).focus().select();
     $(this).popover('toggle');
   });
+
+  window.addEventListener("resize", getAll);
 });
