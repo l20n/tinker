@@ -31,13 +31,6 @@ $(function() {
     }
   });
 
-  parser.addEventListener('error', function(e) {
-    $("#errors").append("<dt>Syntax error at position " + e.pos + "</dt><dd>" + e.message + "</dd>");
-  });
-  compiler.addEventListener('error', function(e) {
-    $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + "</code></dt><dd>" + e.message + "</dd>");
-  });
-
   function update() {
     $("#output").empty();
     $("#errors").empty();
@@ -86,6 +79,21 @@ $(function() {
   context.setHighlightSelectedWord(false);
   context.getSession().setMode("ace/mode/json");
   context.getSession().on('change', update);
+
+
+  /* Errors */
+
+  parser.addEventListener('error', function(e) {
+    var pos = source.getSession().getDocument().indexToPosition(e.pos);
+    $("#errors").append("<dt>Syntax error near row " + (pos.row + 1) + 
+                        ", column " + (pos.column + 1) + "</dt><dd>" + 
+                        e.message + "</dd>");
+  });
+  compiler.addEventListener('error', function(e) {
+    $("#errors").append("<dt>" + e.name + " in entity <code>" + e.entry + 
+                        "</code></dt><dd>" + e.message + "</dd>");
+  });
+
 
 
   /* Linkify */
