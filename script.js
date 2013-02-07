@@ -35,18 +35,16 @@ $(function() {
   var data;
 
   function update() {
+    $("#errors").empty();
+    $("#output").empty();
+
     var code = source.getValue();
     var ast = parser.parse(code);
     try {
       data = JSON.parse(context.getValue());
     } catch (e) {}
     entries = compiler.compile(ast);
-    getAll();
-  }
 
-  function getAll() {
-    $("#output").empty();
-    $("#errors").empty();
     for (var id in entries) {
       if (entries[id].expression) {
         continue;
@@ -142,5 +140,5 @@ $(function() {
     $(this).popover('toggle');
   });
 
-  window.addEventListener("resize", getAll);
+  window.addEventListener("resize", update);
 });
