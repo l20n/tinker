@@ -5,31 +5,8 @@ $(function() {
   var parser = new L20n.Parser(L20n.EventEmitter);
   var compiler = new L20n.Compiler(L20n.EventEmitter, L20n.Parser);
 
-  compiler.setGlobals({
-    get hour() {
-      return new Date().getHours();
-    },
-    get os() {
-      if (/^MacIntel/.test(navigator.platform)) {
-        return 'mac';
-      }
-      if (/^Linux/.test(navigator.platform)) {
-        return 'linux';
-      }
-      if (/^Win/.test(navigatgor.platform)) {
-        return 'win';
-      }
-      return 'unknown';
-    },
-    screen: {
-      get width() {
-        return document.body.clientWidth;
-      },
-      get height() {
-        return document.body.clientHeight;
-      },
-    }
-  });
+  var _retr = new L20n.RetranslationManager();
+  compiler.setGlobals(_retr.globals);
 
   var entries;
   var data;
@@ -52,9 +29,9 @@ $(function() {
       }
       var val;
       try {
-        val = entries[id].toString(data);
+        val = entries[id].getString(data);
       } catch (e) {
-        if (e instanceof compiler.ValueError) {
+        if (e.source) {
           val = e.source;
         } else {
           $("#output").append("<div><dt><code class=\"disabled\">" + e.entry + "</code></dt><dd></dd></div>");
