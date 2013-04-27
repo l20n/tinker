@@ -101,8 +101,8 @@ $(function() {
 
   var hash = window.location.hash.slice(1) || defaultHash;
   var state = JSON.parse(b64_to_utf8(hash));
-  source.setValue(state.source);
   context.setValue(state.context);
+  source.setValue(state.source);
   source.clearSelection();
   source.gotoLine(0);
   context.clearSelection();
