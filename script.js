@@ -2,8 +2,8 @@ $(function() {
 
   /* L20n */
 
-  var parser = new L20n.Parser(L20n.EventEmitter);
-  var compiler = new L20n.Compiler(L20n.EventEmitter, L20n.Parser);
+  var parser = new L20n.Parser();
+  var compiler = new L20n.Compiler();
 
   var _retr = new L20n.RetranslationManager();
   compiler.setGlobals(_retr.globals);
