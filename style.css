@@ -7,6 +7,16 @@ body {
   overflow: hidden;
 }
 
+.navbar-inner {
+    display: flex;
+    align-items: center;
+}
+
+.rev {
+    flex: 1 1 auto;
+    text-align: right;
+}
+
 #logo {
   font-weight: bold;
   color: #000000;
@@ -18,6 +28,11 @@ body {
 
 #share-url {
     margin-left: -6px;
+}
+
+label {
+    display: inline;
+    margin-left: 1rem;
 }
 
 .container-fluid .row-fluid {
@@ -61,20 +76,13 @@ body {
   overflow-y: auto !important;
 }
 
-.ace_line {
-  color: #999999 !important;
-}
-
-.ace_entity {
-  color: #D33682 !important;
-}
-
 dl {
   margin: 0;
 }
 
 dd {
   margin: 0;
+  white-space: pre-wrap;
 }
 
 #output {
@@ -82,7 +90,7 @@ dd {
 }
 
 #output div {
-  margin: 5px 0 0 8px;
+  margin: 5px 8px 0;
 }
 
 #output dt {
@@ -114,4 +122,9 @@ dd {
 
 #errors dt {
   color: #DD1144;
+}
+
+#errors pre em {
+  font-style: normal;
+  background-color: #FEBECE;
 }
