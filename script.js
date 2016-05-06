@@ -69,12 +69,12 @@ $(function() {
         const id = entry.id.name;
 
         try {
-          const result = L20n.format(ctx, lang, args, entries[id]);
+          const [value, errors] = L20n.format(ctx, lang, args, entries[id]);
           $("#output").append(
             "<div><dt><code>" + id + "</code></dt>" +
-            "<dd>" + escapeHtml(result[1]) + "</dd></div>"
+            "<dd>" + escapeHtml(value) + "</dd></div>"
           );
-          result[0].forEach(e => {
+          errors.forEach(e => {
             $("#errors").append(
               "<dt>" + e.name + " in entity <code>" + id + "</code></dt>" +
               "<dd>" + escapeHtml(e.message) + "</dd>"
