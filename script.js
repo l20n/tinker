@@ -20,10 +20,12 @@ $(function() {
     var code = source.getValue();
     try {
       var [resource, errors] = L20n.FTLASTParser.parseResource(code);
-      var [entries] = L20n.createEntriesFromAST([resource, errors]);
     } catch(e) {
       logUnexpected(e);
     }
+
+    const bundle = new L20n.Bundle(config.lang);
+    bundle.addMessages(code);
 
     errors.forEach(e => {
       $("#errors").append(
@@ -42,10 +44,10 @@ $(function() {
 
     source.getSession().setAnnotations(anots);
 
-    print(resource.body, new L20n.MockContext(entries), args, entries);
+    print(resource.body, bundle, args);
   }
 
-  function print(body, ctx, args, entries) {
+  function print(body, bundle, args) {
     for (let entry of body) {
       if (entry.type === 'Comment') {
         continue;
@@ -60,16 +62,16 @@ $(function() {
       }
 
       if (entry.type === 'Section') {
-        print(entry.body, ctx, args, entries);
+        print(entry.body, bundle, args);
         continue;
       }
 
       if (entry.type === 'Entity') {
-        const lang = { code: config.lang };
         const id = entry.id.name;
 
         try {
-          const [value, errors] = L20n.format(ctx, lang, args, entries[id]);
+          const message = bundle.messages.get(id);
+          const [value, errors] = bundle.format(message, args);
           $("#output").append(
             "<div><dt><code>" + id + "</code></dt>" +
             "<dd>" + escapeHtml(value) + "</dd></div>"
