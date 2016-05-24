@@ -99,7 +99,7 @@ $(function() {
   source.getSession().setOption("useWorker", false);
   source.setTheme("ace/theme/solarized_light");
   source.getSession().setMode("ace/mode/ft");
-  source.getSession().on('change', update);
+  source.getSession().on('change', debounce(update));
 
   var context = ace.edit("context");
   context.setShowPrintMargin(false);
@@ -107,7 +107,15 @@ $(function() {
   context.setHighlightGutterLine(false);
   context.setHighlightSelectedWord(false);
   context.getSession().setMode("ace/mode/json");
-  context.getSession().on('change', update);
+  context.getSession().on('change', debounce(update));
+
+  function debounce(fn) {
+    let timer = null;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), 250);
+    };
+  }
 
 
   /* Errors */
