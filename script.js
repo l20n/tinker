@@ -17,15 +17,18 @@ $(function() {
       args = JSON.parse(context.getValue());
     } catch (e) {}
 
-    var code = source.getValue();
+    var messages = source.getValue();
+
+    sendMozL20nDemoEvent('update', { messages });
+
     try {
-      var [resource, errors] = L20n.FTLASTParser.parseResource(code);
+      var [resource, errors] = L20n.FTLASTParser.parseResource(messages);
     } catch(e) {
       logUnexpected(e);
     }
 
     const ctx = new Intl.MessageContext(config.lang);
-    ctx.addMessages(code);
+    ctx.addMessages(messages);
 
     errors.forEach(e => {
       $("#errors").append(
@@ -87,6 +90,17 @@ $(function() {
         }
       }
     }
+  }
+
+  /* L20n Demo for MozLondon */
+
+  function sendMozL20nDemoEvent(action, data = {}) {
+    var event = new CustomEvent('mozL20nDemo', {
+      bubbles: true,
+      detail: { action, data }
+    });
+
+    document.dispatchEvent(event);
   }
 
   /* ACE */
