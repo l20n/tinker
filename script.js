@@ -24,8 +24,8 @@ $(function() {
       logUnexpected(e);
     }
 
-    const bundle = new L20n.Bundle(config.lang);
-    bundle.addMessages(code);
+    const ctx = new Intl.MessageContext(config.lang);
+    ctx.addMessages(code);
 
     errors.forEach(e => {
       $("#errors").append(
@@ -44,10 +44,10 @@ $(function() {
 
     source.getSession().setAnnotations(anots);
 
-    print(resource.body, bundle, args);
+    print(resource.body, ctx, args);
   }
 
-  function print(body, bundle, args) {
+  function print(body, ctx, args) {
     for (let entry of body) {
       if (entry.type === 'Comment') {
         continue;
@@ -62,7 +62,7 @@ $(function() {
       }
 
       if (entry.type === 'Section') {
-        print(entry.body, bundle, args);
+        print(entry.body, ctx, args);
         continue;
       }
 
@@ -70,8 +70,8 @@ $(function() {
         const id = entry.id.name;
 
         try {
-          const message = bundle.messages.get(id);
-          const [value, errors] = bundle.format(message, args);
+          const message = ctx.messages.get(id);
+          const [value, errors] = ctx.format(message, args);
           $("#output").append(
             "<div><dt><code>" + id + "</code></dt>" +
             "<dd>" + escapeHtml(value) + "</dd></div>"
