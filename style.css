@@ -60,8 +60,15 @@ header select {
   background: #FFFFFF;
   position: relative;
   height: 100%;
-  width: 50%;
   margin: 0;
+}
+
+.row-fluid .narrow {
+    width: 45%;
+}
+
+.row-fluid .wide {
+    width: 55%;
 }
 
 #source,
@@ -108,7 +115,7 @@ dd {
 
 #output dt {
   display: inline-block;
-  width: 30%;
+  width: 45%;
 }
 
 #output dt code {
@@ -121,7 +128,7 @@ dd {
 }
 
 #output dd {
-  width: 70%;
+  width: 55%;
   color: #666666;
   display: inline-block;
   vertical-align: top;
