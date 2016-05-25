@@ -35,6 +35,19 @@ label {
     margin-left: 1rem;
 }
 
+header input[type="checkbox"],
+header select {
+    margin: 0;
+}
+
+#lang {
+    width: 7rem;
+}
+
+#fixture {
+    width: 15rem;
+}
+
 .container-fluid .row-fluid {
   bottom: 0;
   top: 41px;

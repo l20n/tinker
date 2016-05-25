@@ -5,6 +5,15 @@ $(function() {
     lang: 'en-US',
   };
 
+  const functions = {
+    OS() {
+      if (/^MacIntel/.test(navigator.platform)) return 'mac';
+      if (/^Linux/.test(navigator.platform)) return 'lin';
+      if (/^Win/.test(navigator.platform)) return 'win'
+      return 'unknown';
+    }
+  };
+
   /* L20n */
 
   function update() {
@@ -27,7 +36,7 @@ $(function() {
       logUnexpected(e);
     }
 
-    const ctx = new Intl.MessageContext(config.lang);
+    const ctx = new Intl.MessageContext(config.lang, { functions });
     ctx.addMessages(messages);
 
     errors.forEach(e => {
@@ -193,18 +202,42 @@ $(function() {
   }
 
 
+  /* Fixtures */
+
+  document.querySelector('#fixture').addEventListener(
+    'change', evt => loadFixture(evt.target.value)
+  );
+
+  function loadFixture(name) {
+    Promise.all([
+      fetch(`fixtures/${name}.ftl`).then(resp => resp.text()),
+      fetch(`fixtures/${name}.json`).then(resp => resp.text()),
+    ]).then(([ftl, args]) => {
+      source.setValue(ftl);
+      context.setValue(args);
+      source.clearSelection();
+      context.clearSelection();
+      source.gotoLine(0);
+    }).then(update);
+  }
+
   /* Main Code */
 
-  var hash = window.location.hash.slice(1) || defaultHash;
-  var state = JSON.parse(b64_to_utf8(hash));
-  context.setValue(state.context);
-  source.setValue(state.source);
-  if (state.config) {
-    config = state.config;
+  var hash = window.location.hash.slice(1);
+
+  if (hash) {
+    var state = JSON.parse(b64_to_utf8(hash));
+    source.setValue(state.source);
+    context.setValue(state.context);
+    if (state.config) {
+      config = state.config;
+    }
+    source.clearSelection();
+    source.gotoLine(0);
+    context.clearSelection();
+  } else {
+    loadFixture('default');
   }
-  source.clearSelection();
-  source.gotoLine(0);
-  context.clearSelection();
 
   $('#share').popover({
     placement: 'bottom',
