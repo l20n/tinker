@@ -32,12 +32,15 @@ body {
 
 label {
     display: inline;
-    margin-left: 1rem;
 }
 
 header input[type="checkbox"],
 header select {
-    margin: 0;
+    margin: 0 1rem 0 0;
+}
+
+.navbar .btn {
+    margin: 0 .5rem 0;
 }
 
 #lang {
