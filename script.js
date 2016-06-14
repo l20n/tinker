@@ -3,6 +3,7 @@ $(function() {
   var config = {
     escapeHtml: true,
     lang: 'en-US',
+    fixture: 'default',
   };
 
   const functions = {
@@ -221,9 +222,11 @@ $(function() {
     },
   };
 
-  document.querySelector('#fixture').addEventListener(
-    'change', evt => loadFixture(evt.target.value)
-  );
+  document.querySelector('#fixture').addEventListener('change', evt => {
+    const fixture = evt.target.value;
+    config.fixture = fixture;
+    loadFixture(fixture)
+  });
 
   function loadFixture(name) {
     Promise.all([
@@ -248,6 +251,9 @@ $(function() {
     context.setValue(state.context);
     if (state.config) {
       config = state.config;
+      document.querySelector('#lang').value = config.lang;
+      document.querySelector('#fixture').value = config.fixture;
+      document.querySelector('#escape-html').checkde = config.escapeHtml;
     }
     source.clearSelection();
     source.gotoLine(0);
