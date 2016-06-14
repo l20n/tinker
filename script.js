@@ -204,14 +204,31 @@ $(function() {
 
   /* Fixtures */
 
+  const fixtures = {
+    default: {
+      ftl: 'fixtures/default.ftl',
+      json: 'fixtures/default.json',
+    },
+    aboutDialog: {
+      resid: '/browser/aboutDialog.ftl',
+      ftl: 'fixtures/aboutDialog.ftl',
+      json: 'fixtures/aboutDialog.json',
+    },
+    aboutSupport: {
+      resid: '/global/aboutSupport.ftl',
+      ftl: 'fixtures/aboutSupport.ftl',
+      json: 'fixtures/aboutSupport.json',
+    },
+  };
+
   document.querySelector('#fixture').addEventListener(
     'change', evt => loadFixture(evt.target.value)
   );
 
   function loadFixture(name) {
     Promise.all([
-      fetch(`fixtures/${name}.ftl`).then(resp => resp.text()),
-      fetch(`fixtures/${name}.json`).then(resp => resp.text()),
+      fetch(fixtures[name].ftl).then(resp => resp.text()),
+      fetch(fixtures[name].json).then(resp => resp.text()),
     ]).then(([ftl, args]) => {
       source.setValue(ftl);
       context.setValue(args);
