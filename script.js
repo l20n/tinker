@@ -29,8 +29,6 @@ $(function() {
 
     var messages = source.getValue();
 
-    sendMozL20nDemoEvent('update', { messages });
-
     try {
       var [resource, errors] = L20n.FTLASTParser.parseResource(messages);
     } catch(e) {
@@ -104,14 +102,17 @@ $(function() {
 
   /* L20n Demo for MozLondon */
 
-  function sendMozL20nDemoEvent(action, data = {}) {
-    var event = new CustomEvent('mozL20nDemo', {
-      bubbles: true,
-      detail: { action, data }
-    });
+  function getState() {
+    return {
+      demo: fixtures[config.fixture].demo,
+      resId: fixtures[config.fixture].resId,
+      lang: config.lang,
+      messages: source.getValue(),
+    }
+  };
 
-    document.dispatchEvent(event);
-  }
+  L20nDemo.init(getState);
+
 
   /* ACE */
 
@@ -211,25 +212,21 @@ $(function() {
       json: 'fixtures/default.json',
     },
     aboutDialog: {
-      resid: '/browser/aboutDialog.ftl',
+      resId: '/browser/aboutDialog.ftl',
       ftl: 'fixtures/aboutDialog.ftl',
       json: 'fixtures/aboutDialog.json',
+      demo: true,
     },
     aboutSupport: {
-      resid: '/global/aboutSupport.ftl',
+      resId: '/global/aboutSupport.ftl',
       ftl: 'fixtures/aboutSupport.ftl',
       json: 'fixtures/aboutSupport.json',
+      demo: true,
     },
   };
 
-  document.querySelector('#fixture').addEventListener('change', evt => {
-    const fixture = evt.target.value;
-    config.fixture = fixture;
-    loadFixture(fixture)
-  });
-
   function loadFixture(name) {
-    Promise.all([
+    return Promise.all([
       fetch(fixtures[name].ftl).then(resp => resp.text()),
       fetch(fixtures[name].json).then(resp => resp.text()),
     ]).then(([ftl, args]) => {
@@ -254,12 +251,15 @@ $(function() {
       document.querySelector('#lang').value = config.lang;
       document.querySelector('#fixture').value = config.fixture;
       document.querySelector('#escape-html').checkde = config.escapeHtml;
+      L20nDemo.update();
     }
     source.clearSelection();
     source.gotoLine(0);
     context.clearSelection();
   } else {
-    loadFixture('default');
+    loadFixture('default').then(
+      () => L20nDemo.update()
+    );
   }
 
   $('#share').popover({
@@ -280,5 +280,14 @@ $(function() {
   $('#lang').change(function(evt) {
     config.lang = $(this).val();
     update();
+    L20nDemo.update();
   });
+
+  $('#fixture').change(function(evt) {
+    const fixture = evt.target.value;
+    config.fixture = fixture;
+    L20nDemo.update();
+    loadFixture(fixture);
+  });
+
 });
