@@ -56,7 +56,7 @@ const L20nDemo = (function() {
         () => roundtrip('register', 'registered')
       ).then(() => {
         const source = ace.edit("source");
-        const incr = () => emit('incremental', this.getState());
+        const incr = () => emit('update', this.getState());
         source.getSession().on('change', debounce(incr));
       });
     },

@@ -235,7 +235,10 @@ $(function() {
       source.clearSelection();
       context.clearSelection();
       source.gotoLine(0);
-    }).then(update);
+    }).then(() => {
+      update();
+      L20nDemo.update();
+    });
   }
 
   /* Main Code */
@@ -257,9 +260,7 @@ $(function() {
     source.gotoLine(0);
     context.clearSelection();
   } else {
-    loadFixture('default').then(
-      () => L20nDemo.update()
-    );
+    loadFixture('default');
   }
 
   $('#share').popover({
@@ -286,7 +287,6 @@ $(function() {
   $('#fixture').change(function(evt) {
     const fixture = evt.target.value;
     config.fixture = fixture;
-    L20nDemo.update();
     loadFixture(fixture);
   });
 
