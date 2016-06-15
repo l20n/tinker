@@ -235,10 +235,9 @@ $(function() {
       source.clearSelection();
       context.clearSelection();
       source.gotoLine(0);
-    }).then(() => {
-      update();
-      L20nDemo.update();
-    });
+    }).then(
+      update
+    );
   }
 
   /* Main Code */
@@ -254,13 +253,15 @@ $(function() {
       document.querySelector('#lang').value = config.lang;
       document.querySelector('#fixture').value = config.fixture;
       document.querySelector('#escape-html').checkde = config.escapeHtml;
-      L20nDemo.update();
+      L20nDemo.register();
     }
     source.clearSelection();
     source.gotoLine(0);
     context.clearSelection();
   } else {
-    loadFixture('default');
+    loadFixture('default').then(
+      () => L20nDemo.register()
+    );
   }
 
   $('#share').popover({
@@ -287,7 +288,9 @@ $(function() {
   $('#fixture').change(function(evt) {
     const fixture = evt.target.value;
     config.fixture = fixture;
-    loadFixture(fixture);
+    loadFixture(fixture).then(
+      () => L20nDemo.update()
+    );
   });
 
 });

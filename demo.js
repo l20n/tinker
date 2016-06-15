@@ -1,5 +1,9 @@
 const L20nDemo = (function() {
 
+  let _getState;
+  let _connected;
+  let _registered;
+
   function emit(action, data) {
     document.dispatchEvent(
       new CustomEvent('mozL20nDemo', {
@@ -20,17 +24,14 @@ const L20nDemo = (function() {
     };
   }
 
-  function roundtrip(msg, resp) {
+  function roundtrip(msg, resp, state) {
     return new Promise((resolve, reject) => {
 
       function onResponse(evt) {
-        switch(evt.detail.action) {
-          case resp: {
-            clearTimeout(t);
-            window.removeEventListener('mozL20nDemoResponse', onResponse);
-            resolve();
-            break;
-          }
+        if (evt.detail.action === resp) {
+          clearTimeout(t);
+          window.removeEventListener('mozL20nDemoResponse', onResponse);
+          resolve();
         }
       }
 
@@ -41,38 +42,47 @@ const L20nDemo = (function() {
 
       window.addEventListener('mozL20nDemoResponse', onResponse);
 
-      emit(msg);
+      emit(msg, state);
     });
+  }
+
+  function attachEditorHandlers() {
+    const source = ace.edit("source");
+    const incr = () => emit('update', _getState());
+    source.getSession().on('change', debounce(incr));
+  }
+
+  function register(state) {
+    return _connected.then(
+      () => roundtrip('register', 'registered', state)
+    ).then(
+      attachEditorHandlers
+    );
+  }
+
+  function update(state) {
+    return roundtrip('update', 'updated', state);
   }
 
   return {
     init(getState) {
-      this.getState = getState;
-      this.connected = roundtrip('helo', 'ehlo');
+      _getState = getState;
+      return _connected = roundtrip('helo', 'ehlo');
     },
 
-    register() {
-      this.registered = this.connected.then(
-        () => roundtrip('register', 'registered')
-      ).then(() => {
-        const source = ace.edit("source");
-        const incr = () => emit('update', this.getState());
-        source.getSession().on('change', debounce(incr));
-      });
+    register(state) {
+      _registered = register();
     },
 
     update() {
-      const state = this.getState();
+      const state = _getState();
+
       if (!state.demo) {
-        return false;
+        return Promise.reject();
       }
 
-      if (!this.registered) {
-        this.register();
-      }
-
-      this.registered.then(
-        () => emit('update', state)
+      return (_registered || this.register(state)).then(
+        () => update(state)
       );
     },
   };
