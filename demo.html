@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FTL tinker</title>
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+    <style>
+      #demo {
+        height: 70%;
+      }
+      #source {
+        height: 100%;
+      }
+      #context, #output {
+        display: none;
+      }
+    </style>
+
+    <script type="text/javascript" src="lib/l20n.js"></script>
+  </head>
+  <body>
+    <header class="navbar navbar-static-top">
+      <div class="navbar-inner">
+        <div>
+          <a id="logo" class="brand" href="#">FTL tinker</a>
+        </div>
+        <div>
+          <select id="lang">
+            <option value="en-US" selected>English</option>
+            <option value="pl">Polish</option>
+          </select>
+        </div>
+        <div>
+          <select id="fixture">
+            <option value="default" selected>default.ftl</option>
+            <option value="aboutDialog">/browser/aboutDialog.ftl</option>
+            <option value="aboutSupport">/global/aboutSupport.ftl</option>
+          </select>
+        </div>
+        <div>
+          <label for="escape-html">Escape HTML</label>
+          <input id="escape-html" type="checkbox" checked>
+        </div>
+        <div class="rev">
+          <button id="share" class="btn btn-info" type="button">Share</button>
+          <a href="https://github.com/l20n/l20n.js/commit/6a90432a3b551692361a83000a6f2b6640127cba">
+            l20n:6a90
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <section id="demo">
+          <div id="source"></div>
+        </section>
+
+        <section class="span2 wide">
+          <dl id="errors"></dl>
+        </section>
+
+        <dl id="output"></dl>
+        <div id="context"></div>
+      </div>
+    </div>
+
+    <script src="lib/jquery-1.9.0.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
+    <script src="lib/ace/ace.js"></script>
+    <script src="demo.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
