@@ -220,13 +220,13 @@ $(function() {
     aboutRobots: {
       resId: '/browser/aboutRobots.ftl',
       ftl: 'fixtures/aboutRobots.ftl',
-      json: 'fixtures/aboutRobots.json',
+      json: 'fixtures/empty.json',
       demo: true,
     },
     aboutLocalization: {
       resId: '/global/aboutLocalization.ftl',
       ftl: 'fixtures/aboutLocalization.ftl',
-      json: 'fixtures/aboutLocalization.json',
+      json: 'fixtures/empty.json',
       demo: true,
     },
     aboutSupport: {
@@ -238,7 +238,7 @@ $(function() {
     tabbrowser: {
       resId: '/browser/tabbrowser.ftl',
       ftl: 'fixtures/tabbrowser.ftl',
-      json: 'fixtures/tabbrowser.json',
+      json: 'fixtures/empty.json',
       demo: true,
     },
   };
