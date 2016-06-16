@@ -229,6 +229,12 @@ $(function() {
       json: 'fixtures/aboutSupport.json',
       demo: true,
     },
+    tabbrowser: {
+      resId: '/browser/tabbrowser.ftl',
+      ftl: 'fixtures/tabbrowser.ftl',
+      json: 'fixtures/tabbrowser.json',
+      demo: true,
+    },
   };
 
   function loadFixture(name) {
