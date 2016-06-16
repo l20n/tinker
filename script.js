@@ -217,6 +217,12 @@ $(function() {
       json: 'fixtures/aboutDialog.json',
       demo: true,
     },
+    aboutRobots: {
+      resId: '/browser/aboutRobots.ftl',
+      ftl: 'fixtures/aboutRobots.ftl',
+      json: 'fixtures/aboutRobots.json',
+      demo: true,
+    },
     aboutLocalization: {
       resId: '/global/aboutLocalization.ftl',
       ftl: 'fixtures/aboutLocalization.ftl',
