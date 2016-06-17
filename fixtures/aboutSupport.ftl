@@ -10,7 +10,8 @@ aboutSupport-pageSubtitle =
   | pytania dotyczące programu { brandShortName }, sprawdź naszą
   | <a id='supportLink'>stronę wsparcia technicznego</a>. 
 
-aboutSupport-safeModeTitle = Spróbuj trybu bezpiecznego
+# XXX removed for demo
+# aboutSupport-safeModeTitle = Spróbuj trybu bezpiecznego
 # XXX broken for demo
 aboutSupport-restartInSafeMode Uruchom ponownie z wyłączonymi dodatkami…
 
