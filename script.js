@@ -211,6 +211,10 @@ $(function() {
       ftl: 'fixtures/default.ftl',
       json: 'fixtures/default.json',
     },
+    basic: {
+      ftl: 'fixtures/basic.ftl',
+      json: 'fixtures/basic.json',
+    },
     aboutDialog: {
       resId: '/browser/aboutDialog.ftl',
       ftl: 'fixtures/aboutDialog.ftl',
