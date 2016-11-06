@@ -23,18 +23,14 @@ about-channel-description =
 # External variables can be used as the selection criteria
 # for choosing one of the variants defined in the translation.
 # $days (Number) - Number of days passed from the last recorded crash.
-about-support-crashes-title = { PLURAL($days) ->
+about-support-crashes-title = { $days ->
     [one]    Crash Reports for the Last { $days } day
    *[other]  Crash Reports for the Last { $days } days
 }
 
 # L20n includes a number of built-in functions for formatting numbers,
 # dates and plurals with Intl formatters.
-percent-complete = { $progress ->
-    [0]        Pending.
-   *[other]   { NUMBER($progress, style: "percent") } complete.
-    [1]       Finished.
-}
+percent-complete = { NUMBER($progress, style: "percent") } complete.
 
 # Functions may return information about the app environment; for instance
 # OS() returns the name of the user's operating system.

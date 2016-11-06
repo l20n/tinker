@@ -15,15 +15,11 @@ crashed = { brand-name[gender] ->
   [feminine]  { brand-name } uległa awarii.
 }
 
-new-notifications = { PLURAL($num) ->
+new-notifications = { $num ->
   [0]     No new notifications.
   [1]     One new notification.
   [2]     Two new notifications.
  *[other] { $num } new notifications.
 }
 
-percent-complete = { $progress ->
-  [0]   Pending.
- *[_]   { NUMBER($progress, style: "percent") } complete.
-  [1]   Finished.
-}
+percent-complete = { NUMBER($progress, style: "percent") } complete.

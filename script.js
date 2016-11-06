@@ -81,8 +81,9 @@ $(function() {
         const id = entry.id.name;
 
         try {
+          const errors = [];
           const message = ctx.messages.get(id);
-          const [value, errors] = ctx.format(message, args);
+          const value = ctx.format(message, args, errors);
           $("#output").append(
             "<div><dt><code>" + id + "</code></dt>" +
             "<dd>" + escapeHtml(value) + "</dd></div>"
