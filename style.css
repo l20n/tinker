@@ -43,6 +43,7 @@ header select {
     margin: 0 .5rem 0;
 }
 
+#dir,
 #lang {
     width: 7rem;
 }

@@ -2,6 +2,7 @@ $(function() {
 
   var config = {
     escapeHtml: true,
+    dir: 'ltr',
     lang: 'en-US',
     fixture: 'default',
   };
@@ -107,6 +108,7 @@ $(function() {
     return {
       demo: fixtures[config.fixture].demo,
       resId: fixtures[config.fixture].resId,
+      dir: config.dir,
       lang: config.lang,
       messages: source.getValue(),
     }
@@ -273,6 +275,7 @@ $(function() {
     context.setValue(state.context);
     if (state.config) {
       config = state.config;
+      document.querySelector('#dir').value = config.dir;
       document.querySelector('#lang').value = config.lang;
       document.querySelector('#fixture').value = config.fixture;
       document.querySelector('#escape-html').checkde = config.escapeHtml;
@@ -300,6 +303,11 @@ $(function() {
   $('#escape-html').click(function() {
     config.escapeHtml = !config.escapeHtml;
     update();
+  });
+
+  $('#dir').change(function(evt) {
+    config.dir = $(this).val();
+    $('#output').attr('dir', config.dir);
   });
 
   $('#lang').change(function(evt) {
