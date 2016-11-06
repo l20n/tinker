@@ -275,10 +275,10 @@ $(function() {
     context.setValue(state.context);
     if (state.config) {
       config = state.config;
-      document.querySelector('#dir').value = config.dir;
-      document.querySelector('#lang').value = config.lang;
-      document.querySelector('#fixture').value = config.fixture;
-      document.querySelector('#escape-html').checkde = config.escapeHtml;
+      document.querySelector('#dir').value = config.dir || 'ltr';
+      document.querySelector('#lang').value = config.lang || 'en-US';
+      document.querySelector('#fixture').value = config.fixture || 'default';
+      document.querySelector('#escape-html').checked = config.escapeHtml || true;
       L20nDemo.register();
     }
     source.clearSelection();
