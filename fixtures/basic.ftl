@@ -33,9 +33,9 @@ about-support-crashes-title = { $days ->
 percent-complete = { NUMBER($progress, style: "percent") } complete.
 
 # Functions may return information about the app environment; for instance
-# OS() returns the name of the user's operating system.
-about-support-show-dir = { OS() ->
-    [win]   Show Folder
-    [mac]   Show in Finder
-   *[other] Open Directory
+# PLATFORM() returns the name of the user's operating system.
+about-support-show-dir = { PLATFORM() ->
+    [windows] Show Folder
+    [macos]   Show in Finder
+   *[other]   Open Directory
 }

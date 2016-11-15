@@ -41,15 +41,15 @@ aboutSupport-appBasicsOS = OS
 # language. For example, in English Windows and Mac use “Folder”, while Linux
 # use “Directory”.
 [[platform-messages]]
-aboutSupport-appBasicsProfileDir = { OS() ->
-  [win] Profile Folder
-  [mac] Profile Folder
- *[other] Profile Directory
+aboutSupport-appBasicsProfileDir = { PLATFORM() ->
+  [windows] Profile Folder
+  [macos]   Profile Folder
+ *[other]   Profile Directory
 }
-aboutSupport-showDir = { OS() ->
-  [win] Show Folder
-  [mac] Show in Finder
- *[other] Open Directory
+aboutSupport-showDir = { PLATFORM() ->
+  [windows] Show Folder
+  [macos]   Show in Finder
+ *[other]   Open Directory
 }
 
 aboutSupport-appBasicsEnabledPlugins = Enabled Plugins

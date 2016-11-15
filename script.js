@@ -8,11 +8,11 @@ $(function() {
   };
 
   const functions = {
-    OS() {
-      if (/^MacIntel/.test(navigator.platform)) return 'mac';
-      if (/^Linux/.test(navigator.platform)) return 'lin';
-      if (/^Win/.test(navigator.platform)) return 'win'
-      return 'unknown';
+    PLATFORM() {
+      if (/^MacIntel/.test(navigator.platform)) return 'macos';
+      if (/^Linux/.test(navigator.platform)) return 'linux';
+      if (/^Win/.test(navigator.platform)) return 'windows'
+      return 'other';
     }
   };
 
